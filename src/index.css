@@ -173,3 +173,245 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Estilização Cartográfica SVG
+   ========================================================================== */
+.land {
+  fill: none;
+  stroke: var(--land-edge);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.terra {
+  fill: var(--terra);
+}
+.lc {
+  fill-rule: nonzero;
+  pointer-events: none;
+}
+.lc-roca { fill: var(--lc-roca); }
+.lc-pomar { fill: var(--lc-pomar); }
+.lc-campo { fill: var(--lc-campo); }
+.lc-caatinga { fill: var(--lc-caatinga); }
+.lc-mata { fill: var(--lc-mata); }
+.lc-urbano { fill: var(--lc-urbano); }
+.lc-industria { fill: var(--lc-industria); }
+.lc-parque { fill: var(--lc-parque); }
+.lc-brejo { fill: var(--lc-brejo); }
+.lc-areia { fill: var(--lc-areia); }
+.lc-salina {
+  fill: var(--lc-salina);
+  stroke: var(--lc-agua);
+  stroke-width: 0.6px;
+  vector-effect: non-scaling-stroke;
+  stroke-opacity: 0.6;
+}
+.lc-agua {
+  fill: var(--lc-agua);
+  stroke: var(--river);
+  stroke-width: 0.8px;
+  vector-effect: non-scaling-stroke;
+}
+.fade0 { stop-color: var(--bg); stop-opacity: 0; }
+.fade1 { stop-color: var(--bg); stop-opacity: 1; }
+
+.cell {
+  fill-opacity: 0.28;
+  stroke: var(--land);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+  transition: fill-opacity 0.2s;
+  cursor: pointer;
+}
+.cell:hover {
+  fill-opacity: 0.52;
+}
+.cell.sel {
+  fill-opacity: 0.65;
+}
+
+.rd {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.rc { stroke: var(--st-case); }
+.rf { stroke: var(--st); }
+.c4.rc { stroke-width: 2.6px; }
+.c4.rf { stroke-width: 1.3px; }
+.c3.rc { stroke-width: 3.6px; }
+.c3.rf { stroke-width: 2.2px; }
+.c2.rc { stroke-width: 4.4px; stroke: var(--sec-case); }
+.c2.rf { stroke-width: 2.8px; stroke: var(--sec); }
+.c1.rc { stroke-width: 5.2px; stroke: var(--pri-case); }
+.c1.rf { stroke-width: 3.4px; stroke: var(--pri); }
+.c0.rc { stroke-width: 6px; stroke: var(--trk-case); }
+.c0.rf { stroke-width: 4px; stroke: var(--trk); }
+.c5.rf { stroke: var(--river); stroke-width: 3.5px; }
+.c6.rf { stroke: var(--river); stroke-width: 1.8px; }
+
+.hlst {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 7px;
+  stroke-opacity: 0.85;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.snames text {
+  font-family: inherit;
+  font-weight: 500;
+  fill: var(--st-ink);
+  paint-order: stroke;
+  stroke: var(--st-halo);
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.snames text.t0,
+.snames text.t1,
+.snames text.t2,
+.snames text.t3,
+.snames text.t4 {
+  display: none;
+}
+.z1 .snames text.t0,
+.z1 .snames text.t1,
+.z2 .snames text.t2,
+.z3 .snames text.t3,
+.z4 .snames text.t4 {
+  display: inline;
+}
+.snames text.long {
+  display: none !important;
+}
+
+.sec {
+  fill: none;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.dot {
+  stroke: var(--halo);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.blabel {
+  font-size: 12.5px;
+  font-weight: 500;
+  fill: var(--ink);
+  paint-order: stroke;
+  stroke: var(--halo);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.showlabels .blabel,
+.blabel.on {
+  opacity: 1;
+}
+
+.badge {
+  cursor: pointer;
+  transition: transform 0.15s ease-out;
+}
+.badge:hover circle {
+  stroke-width: 4px;
+}
+.badge circle {
+  stroke: var(--halo);
+  stroke-width: 2.8px;
+}
+.badge text {
+  font-family: serif;
+  font-weight: 600;
+  font-size: 15px;
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.house {
+  cursor: pointer;
+}
+.hc {
+  fill: #FFFFFF;
+  stroke: rgba(20, 10, 10, 0.35);
+  stroke-width: 1.5;
+}
+.hs {
+  fill: none;
+  stroke: rgba(20, 10, 10, 0.25);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.hb {
+  fill: #D7263D;
+  stroke: #FFFFFF;
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+}
+.hh {
+  fill: #FFFFFF;
+}
+.house:hover .hb {
+  fill: #B5162E;
+}
+.house.hl .hc {
+  stroke: var(--gold);
+  stroke-width: 4;
+}
+
+.ghost path {
+  fill: var(--gold);
+  stroke: var(--halo);
+  stroke-width: 2;
+}
+
+.dim .cell {
+  fill-opacity: 0.1;
+}
+.dim .cell.sel {
+  fill-opacity: 0.6;
+}
+.dim .badge,
+.dim .sec,
+.dim .house {
+  opacity: 0.25;
+}
+.dim .badge.sel,
+.dim .sec.sel,
+.dim .house.sel {
+  opacity: 1;
+}
+.dim .streets {
+  opacity: 0.75;
+}
+
+/* MiniMap Pin & Pulsing Ring */
+.minipin .hb {
+  fill: #D7263D;
+}
+.minipin .pulse {
+  fill: var(--gold);
+  fill-opacity: 0.25;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+
