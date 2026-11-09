@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Marca Oficial — Crescer & Edificar */
+  --ce-verde: #1D4225;
+  --ce-dourado: #D2A34C;
+  --ce-creme: #F4EDE6;
+  --ce-oliva: #7E7F66;
+  --ce-preto: #080706;
+
+  /* UI Semântica — Tema Claro */
+  --bg: #E9EDE6;
+  --panel: #FFFFFF;
+  --ink: #16231A;
+  --muted: #5B6A5F;
+  --line: #D3DBD0;
+  --chip: #F1F4EF;
+  --accent: #1D4225;
+  --on-accent: #FFFFFF;
+  --gold: #D2A34C;
+  --danger: #A3322B;
+  --shadow: 0 8px 28px rgba(29, 66, 37, 0.10);
+
+  /* Elementos do Mapa */
+  --land: #F7F8F4;
+  --land-edge: #B9C4B5;
+  --halo: #FFFFFF;
+  --terra: #E9E2CC;
+  --lc-roca: #EEE5BC;
+  --lc-pomar: #C6D89E;
+  --lc-campo: #DCE3B3;
+  --lc-caatinga: #C3CC9A;
+  --lc-mata: #8FAC79;
+  --lc-urbano: #E6E1D9;
+  --lc-industria: #DCD3CA;
+  --lc-parque: #B2D097;
+  --lc-brejo: #B3D3C3;
+  --lc-areia: #F3E5BC;
+  --lc-salina: #CDE4EE;
+  --lc-agua: #8CC0E3;
+  --st: #FFFFFF;
+  --st-case: #C3CABD;
+  --sec: #FBE7A8;
+  --sec-case: #C9B26A;
+  --pri: #F6C77E;
+  --pri-case: #BF8F48;
+  --trk: #EE9F6B;
+  --trk-case: #B86F3F;
+  --river: #7DB3DE;
+  --st-ink: #2C3A30;
+  --st-halo: #FFFFFF;
+
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema Escuro Automático e por Atributo */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1711;
+    --panel: #152119;
+    --ink: #E7EEE6;
+    --muted: #9DB0A2;
+    --line: #26372B;
+    --chip: #1C2B21;
+    --accent: #9CC9A6;
+    --on-accent: #0E1711;
+    --gold: #E2BC6A;
+    --halo: #1B2A20;
+    --danger: #F08A80;
+    --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+
+    --land: #1B2A20;
+    --land-edge: #3A5242;
+    --terra: #1D231B;
+    --lc-roca: #2C2E21;
+    --lc-pomar: #2B3A25;
+    --lc-campo: #283223;
+    --lc-caatinga: #2D3725;
+    --lc-mata: #244029;
+    --lc-urbano: #2A2F2B;
+    --lc-industria: #302D2A;
+    --lc-parque: #2A4527;
+    --lc-brejo: #22372E;
+    --lc-areia: #393524;
+    --lc-salina: #233F49;
+    --lc-agua: #1E4560;
+    --st: #45574A;
+    --st-case: #1A2620;
+    --sec: #7C6E3E;
+    --sec-case: #2A2616;
+    --pri: #8E6E3A;
+    --pri-case: #2E2412;
+    --trk: #94573A;
+    --trk-case: #311B10;
+    --river: #3E6E92;
+    --st-ink: #DCE6DC;
+    --st-halo: #0E1711;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0E1711;
+  --panel: #152119;
+  --ink: #E7EEE6;
+  --muted: #9DB0A2;
+  --line: #26372B;
+  --chip: #1C2B21;
+  --accent: #9CC9A6;
+  --on-accent: #0E1711;
+  --gold: #E2BC6A;
+  --halo: #1B2A20;
+  --danger: #F08A80;
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+
+  --land: #1B2A20;
+  --land-edge: #3A5242;
+  --terra: #1D231B;
+  --lc-roca: #2C2E21;
+  --lc-pomar: #2B3A25;
+  --lc-campo: #283223;
+  --lc-caatinga: #2D3725;
+  --lc-mata: #244029;
+  --lc-urbano: #2A2F2B;
+  --lc-industria: #302D2A;
+  --lc-parque: #2A4527;
+  --lc-brejo: #22372E;
+  --lc-areia: #393524;
+  --lc-salina: #233F49;
+  --lc-agua: #1E4560;
+  --st: #45574A;
+  --st-case: #1A2620;
+  --sec: #7C6E3E;
+  --sec-case: #2A2616;
+  --pri: #8E6E3A;
+  --pri-case: #2E2412;
+  --trk: #94573A;
+  --trk-case: #311B10;
+  --river: #3E6E92;
+  --st-ink: #DCE6DC;
+  --st-halo: #0E1711;
+
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Foco acessível com anel dourado */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Respeito à preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
