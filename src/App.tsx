@@ -9,6 +9,9 @@ import { MapControls } from '@/components/map/MapControls';
 import { MapLegend } from '@/components/map/MapLegend';
 import { MapTooltip } from '@/components/map/MapTooltip';
 import { MiniMap } from '@/components/map/MiniMap';
+import { LoginModal } from '@/components/auth/LoginModal';
+import { ConviteModal } from '@/components/auth/ConviteModal';
+import { useSSE } from '@/hooks/useSSE';
 import { setorBy, formatEndereco, gPin, gAddr, toLL } from '@/lib/geo';
 
 // Amostra inicial de cultos nos lares para validação interativa
@@ -98,6 +101,12 @@ export function App() {
     y: 696.2,
   });
 
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isConviteOpen, setIsConviteOpen] = useState(false);
+
+  // Ativa escuta de Server-Sent Events em tempo real
+  useSSE();
+
   const totalPessoas = cultos.reduce(
     (acc, c) => acc + (c.pessoas ? c.pessoas.length : 0),
     0
@@ -125,7 +134,12 @@ export function App() {
 
   return (
     <div className="max-w-[1440px] mx-auto px-3 sm:px-5 py-5 min-h-screen">
-      <Header totalCultos={cultos.length} totalPessoas={totalPessoas} />
+      <Header
+        totalCultos={cultos.length}
+        totalPessoas={totalPessoas}
+        onOpenLogin={() => setIsLoginOpen(true)}
+        onOpenConvite={() => setIsConviteOpen(true)}
+      />
 
       <main className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] gap-5 items-start mt-4">
         {/* Painel do Mapa Principal */}
@@ -320,6 +334,10 @@ export function App() {
           </div>
         </aside>
       </main>
+
+      {/* Modais de Autenticação */}
+      <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <ConviteModal isOpen={isConviteOpen} onClose={() => setIsConviteOpen(false)} />
 
       <Toast message={toastMessage} visible={isToastVisible} type={toastType} />
     </div>
