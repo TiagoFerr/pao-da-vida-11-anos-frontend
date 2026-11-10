@@ -21,6 +21,7 @@ import {
   Share2,
   LogOut,
   ShieldAlert,
+  Smartphone,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -131,6 +132,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           >
             <PlusCircle className="w-4 h-4" />
             <span>Adicionar Culto</span>
+          </Button>
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate('/lider')}
+            className="flex items-center gap-1.5 border-emerald-600/30 text-[#1D4225] font-bold"
+          >
+            <Smartphone className="w-4 h-4 text-[#1D4225]" />
+            <span>App do Líder</span>
           </Button>
 
           <Button

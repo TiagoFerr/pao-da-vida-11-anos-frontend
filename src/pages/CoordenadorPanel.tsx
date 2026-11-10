@@ -20,6 +20,7 @@ import {
   LayoutDashboard,
   LogOut,
   ChevronDown,
+  Smartphone,
 } from 'lucide-react';
 
 interface CoordenadorPanelProps {
@@ -136,6 +137,16 @@ export const CoordenadorPanel: React.FC<CoordenadorPanelProps> = ({
           >
             <Map className="w-4 h-4 text-verde" />
             <span>Mapa Geral</span>
+          </Button>
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate('/lider')}
+            className="flex items-center gap-1.5 border-emerald-600/30 text-[#1D4225] font-bold"
+          >
+            <Smartphone className="w-4 h-4 text-[#1D4225]" />
+            <span>App do Líder</span>
           </Button>
 
           <Button
