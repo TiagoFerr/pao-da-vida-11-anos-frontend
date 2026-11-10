@@ -8,6 +8,9 @@ import { useCultosList } from '@/hooks/queries/useCultos';
 import { MapaPublicoPage } from '@/pages/MapaPublicoPage';
 import { DashboardPage } from '@/pages/DashboardPage';
 import { TelaoPage } from '@/pages/TelaoPage';
+import { CoordenadorPanel } from '@/pages/CoordenadorPanel';
+import { ConvitesPage } from '@/pages/ConvitesPage';
+import { ActivateInvitePage } from '@/pages/ActivateInvitePage';
 
 // Amostra inicial de cultos nos lares para validação interativa e fallback de segurança
 const INITIAL_CULTOS: CultoMarker[] = [
@@ -173,6 +176,23 @@ export function App() {
           path="/telao"
           element={<TelaoPage cultosFallback={cultos} />}
         />
+
+        {/* Rota 4: Painel Territorial do Coordenador de Setor */}
+        <Route
+          path="/coordenador"
+          element={
+            <CoordenadorPanel
+              cultosFallback={cultos}
+              onCultoSaved={handleCultoSaved}
+            />
+          }
+        />
+
+        {/* Rota 5: Gestão Central de Convites WhatsApp */}
+        <Route path="/convites" element={<ConvitesPage />} />
+
+        {/* Rota 6: Ativação Pública de Convite Recebido no WhatsApp */}
+        <Route path="/convite/:token" element={<ActivateInvitePage />} />
 
         {/* Fallback de rotas desconhecidas */}
         <Route path="*" element={<Navigate to="/" replace />} />

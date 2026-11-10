@@ -11,6 +11,8 @@ export interface HeaderProps {
   onOpenConvite?: () => void;
   onOpenDashboard?: () => void;
   onOpenTelao?: () => void;
+  onOpenCoordenador?: () => void;
+  onOpenConvites?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -20,6 +22,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenConvite,
   onOpenDashboard,
   onOpenTelao,
+  onOpenCoordenador,
+  onOpenConvites,
 }) => {
   const { user, isAuthenticated, logout } = useAuthStore();
 
@@ -62,8 +66,30 @@ export const Header: React.FC<HeaderProps> = ({
             Igreja Pão da Vida · Mossoró - RN
           </span>
 
-          {/* Botões de Acesso de Liderança, Dashboard e Telão */}
+          {/* Botões de Acesso de Liderança, Dashboard, Coordenador e Telão */}
           <div className="hidden sm:flex items-center gap-2 ml-auto">
+            {onOpenCoordenador && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onOpenCoordenador}
+                className="text-xs"
+              >
+                {user?.role === 'COORDENADOR' ? 'Meu Setor' : 'Coordenação'}
+              </Button>
+            )}
+
+            {onOpenConvites && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onOpenConvites}
+                className="text-xs"
+              >
+                Convites
+              </Button>
+            )}
+
             {onOpenDashboard && (
               <Button
                 variant="default"
@@ -135,6 +161,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Botões para mobile */}
         <div className="sm:hidden flex items-center gap-1.5 flex-wrap justify-end">
+          {onOpenCoordenador && (
+            <Button variant="default" size="sm" onClick={onOpenCoordenador} className="text-[11px] py-1 px-2">
+              Coord.
+            </Button>
+          )}
+          {onOpenConvites && (
+            <Button variant="default" size="sm" onClick={onOpenConvites} className="text-[11px] py-1 px-2">
+              Convites
+            </Button>
+          )}
           {onOpenDashboard && (
             <Button variant="default" size="sm" onClick={onOpenDashboard} className="text-[11px] py-1 px-2">
               Dashboard

@@ -136,11 +136,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           <Button
             variant="default"
             size="sm"
-            onClick={() => setIsConviteModalOpen(true)}
+            onClick={() => navigate('/coordenador')}
+            className="flex items-center gap-1.5"
+          >
+            <span>Coordenação</span>
+          </Button>
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate('/convites')}
             className="flex items-center gap-1.5"
           >
             <Share2 className="w-4 h-4 text-dourado" />
-            <span>Gerar Convite</span>
+            <span>Central Convites</span>
           </Button>
 
           <Button
