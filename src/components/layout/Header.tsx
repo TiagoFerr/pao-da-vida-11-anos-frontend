@@ -9,6 +9,8 @@ export interface HeaderProps {
   totalPessoas?: number;
   onOpenLogin?: () => void;
   onOpenConvite?: () => void;
+  onOpenDashboard?: () => void;
+  onOpenTelao?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -16,6 +18,8 @@ export const Header: React.FC<HeaderProps> = ({
   totalPessoas = 0,
   onOpenLogin,
   onOpenConvite,
+  onOpenDashboard,
+  onOpenTelao,
 }) => {
   const { user, isAuthenticated, logout } = useAuthStore();
 
@@ -58,8 +62,30 @@ export const Header: React.FC<HeaderProps> = ({
             Igreja Pão da Vida · Mossoró - RN
           </span>
 
-          {/* Botões de Acesso de Liderança */}
+          {/* Botões de Acesso de Liderança, Dashboard e Telão */}
           <div className="hidden sm:flex items-center gap-2 ml-auto">
+            {onOpenDashboard && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onOpenDashboard}
+                className="text-xs"
+              >
+                Dashboard
+              </Button>
+            )}
+
+            {onOpenTelao && (
+              <Button
+                variant="gold"
+                size="sm"
+                onClick={onOpenTelao}
+                className="text-xs"
+              >
+                Telão
+              </Button>
+            )}
+
             {isAuthenticated && user ? (
               <div className="flex items-center gap-2 text-xs bg-chip px-3 py-1.5 rounded-full border border-line">
                 <span className="font-medium text-ink">
@@ -107,18 +133,28 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
         </div>
 
-        {/* Botão de login para mobile */}
-        <div className="sm:hidden flex items-center gap-2">
+        {/* Botões para mobile */}
+        <div className="sm:hidden flex items-center gap-1.5 flex-wrap justify-end">
+          {onOpenDashboard && (
+            <Button variant="default" size="sm" onClick={onOpenDashboard} className="text-[11px] py-1 px-2">
+              Dashboard
+            </Button>
+          )}
+          {onOpenTelao && (
+            <Button variant="gold" size="sm" onClick={onOpenTelao} className="text-[11px] py-1 px-2">
+              Telão
+            </Button>
+          )}
           {isAuthenticated && user ? (
             <button
               type="button"
               onClick={() => logout()}
-              className="text-xs text-danger font-medium"
+              className="text-xs text-danger font-medium ml-1"
             >
               Sair ({user.role})
             </button>
           ) : (
-            <Button variant="ghost" size="sm" onClick={onOpenLogin}>
+            <Button variant="ghost" size="sm" onClick={onOpenLogin} className="text-xs">
               Entrar
             </Button>
           )}

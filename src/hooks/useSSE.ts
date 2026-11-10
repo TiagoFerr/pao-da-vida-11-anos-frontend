@@ -3,6 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { sseManager, SseEventHandler } from '../lib/sse';
 import { useAuthStore } from '../stores/useAuthStore';
 import { useUIStore } from '../stores/useUIStore';
+import { useRealtimeStore } from '../stores/useRealtimeStore';
 
 export function useSSE(onCustomEvent?: SseEventHandler) {
   const queryClient = useQueryClient();
@@ -14,6 +15,9 @@ export function useSSE(onCustomEvent?: SseEventHandler) {
     sseManager.connect(accessToken);
 
     const unsubscribe = sseManager.subscribe((event) => {
+      // Registra evento no feed global em tempo real
+      useRealtimeStore.getState().addEvent(event);
+
       // Invalidação de Cache no TanStack Query conforme o tipo de evento
       switch (event.tipo) {
         case 'culto.cadastrado':
