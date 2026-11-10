@@ -9,6 +9,7 @@ import { MapControls } from '@/components/map/MapControls';
 import { MapLegend } from '@/components/map/MapLegend';
 import { MapTooltip } from '@/components/map/MapTooltip';
 import { PublicSidebar } from '@/components/public/PublicSidebar';
+import { CultoFormModal } from '@/components/culto/CultoFormModal';
 import { LoginModal } from '@/components/auth/LoginModal';
 import { ConviteModal } from '@/components/auth/ConviteModal';
 import { useSSE } from '@/hooks/useSSE';
@@ -97,14 +98,25 @@ export function App() {
 
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isConviteOpen, setIsConviteOpen] = useState(false);
+  const [isCultoFormOpen, setIsCultoFormOpen] = useState(false);
+  const [cultoParaEditar, setCultoParaEditar] = useState<CultoMarker | null>(null);
+  const [initialLocationForModal, setInitialLocationForModal] = useState<{
+    x?: number;
+    y?: number;
+    setor?: number;
+    bairro?: string;
+    rua?: string;
+  } | null>(null);
+  const [localCultos, setLocalCultos] = useState<CultoMarker[]>([]);
 
   // Ativa escuta de Server-Sent Events em tempo real
   useSSE();
 
   // Mapeia cultos da API ou usa amostra inicial estática como fallback de segurança
   const cultos: CultoMarker[] = useMemo(() => {
+    let baseList: CultoMarker[];
     if (apiCultos && apiCultos.length > 0) {
-      return apiCultos.map((item) => ({
+      baseList = apiCultos.map((item) => ({
         id: item.id,
         setor: item.setorNumero,
         x: item.svgX,
@@ -122,9 +134,24 @@ export function App() {
         obs: item.observacoes || undefined,
         status: item.status,
       }));
+    } else {
+      baseList = INITIAL_CULTOS;
     }
-    return INITIAL_CULTOS;
-  }, [apiCultos]);
+
+    // Se houver cultos adicionados ou atualizados localmente nesta sessão
+    if (localCultos.length === 0) return baseList;
+
+    const merged = [...baseList];
+    localCultos.forEach((lc) => {
+      const idx = merged.findIndex((m) => m.id === lc.id);
+      if (idx >= 0) {
+        merged[idx] = lc;
+      } else {
+        merged.push(lc);
+      }
+    });
+    return merged;
+  }, [apiCultos, localCultos]);
 
   const totalPessoas = cultos.reduce(
     (acc, c) => acc + (c.pessoas ? c.pessoas.length : 0),
@@ -140,10 +167,36 @@ export function App() {
   }) => {
     setPendingPin({ x: data.x, y: data.y });
     setPicking(false);
+    setInitialLocationForModal(data);
+    setCultoParaEditar(null);
+    setIsCultoFormOpen(true);
     showToast(
-      `Ponto marcado: ${data.rua || 'Rua próxima'} (${data.bairro}, Setor ${data.setor})`,
-      'success'
+      `Ponto selecionado (${data.bairro}, Setor ${data.setor}). Complete os dados do culto.`,
+      'info'
     );
+  };
+
+  const handleOpenCreateCulto = (opts?: { setor?: number; bairro?: string; rua?: string }) => {
+    setCultoParaEditar(null);
+    setInitialLocationForModal(opts ? { setor: opts.setor, bairro: opts.bairro, rua: opts.rua } : null);
+    setIsCultoFormOpen(true);
+  };
+
+  const handleEditCulto = (culto: CultoMarker) => {
+    setCultoParaEditar(culto);
+    setInitialLocationForModal(null);
+    setIsCultoFormOpen(true);
+  };
+
+  const handleCultoSaved = (cultoSalvo: CultoMarker) => {
+    setLocalCultos((prev) => {
+      const exists = prev.some((c) => c.id === cultoSalvo.id);
+      if (exists) {
+        return prev.map((c) => (c.id === cultoSalvo.id ? cultoSalvo : c));
+      }
+      return [...prev, cultoSalvo];
+    });
+    setPendingPin(null);
   };
 
   return (
@@ -207,8 +260,20 @@ export function App() {
             setPicking(true);
             showToast('Toque no mapa para marcar a localização do culto', 'info');
           }}
+          onOpenCreateCulto={handleOpenCreateCulto}
+          onEditCulto={handleEditCulto}
         />
       </main>
+
+      {/* Modal de Formulário de Culto no Lar com Snapping e Geolocalização */}
+      <CultoFormModal
+        isOpen={isCultoFormOpen}
+        onClose={() => setIsCultoFormOpen(false)}
+        cultoParaEditar={cultoParaEditar}
+        initialLocation={initialLocationForModal}
+        existingCultos={cultos}
+        onSaved={handleCultoSaved}
+      />
 
       {/* Modais de Autenticação */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />

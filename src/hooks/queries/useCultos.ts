@@ -42,6 +42,21 @@ export function useCreateCulto() {
   });
 }
 
+export function useUpdateCulto() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, dto }: { id: string; dto: Partial<CriarCultoDto> }) => {
+      const res = await api.put<CultoItem>(`/cultos/${id}`, dto);
+      return res.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['cultos'] });
+      queryClient.invalidateQueries({ queryKey: ['cultos', variables.id] });
+      queryClient.invalidateQueries({ queryKey: ['metricas'] });
+    },
+  });
+}
+
 export function useUpdateCultoStatus() {
   const queryClient = useQueryClient();
   return useMutation({

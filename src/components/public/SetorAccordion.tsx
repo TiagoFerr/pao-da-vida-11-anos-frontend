@@ -14,6 +14,8 @@ interface SetorAccordionProps {
   onToggle: () => void;
   onSelectCulto: (culto: CultoMarker) => void;
   onFocusCulto: (culto: CultoMarker) => void;
+  onEditCulto?: (culto: CultoMarker) => void;
+  onAddCultoInSetor?: (setorNumero: number) => void;
 }
 
 export const SetorAccordion: React.FC<SetorAccordionProps> = ({
@@ -26,6 +28,8 @@ export const SetorAccordion: React.FC<SetorAccordionProps> = ({
   onToggle,
   onSelectCulto,
   onFocusCulto,
+  onEditCulto,
+  onAddCultoInSetor,
 }) => {
   const totalPessoas = cultos.reduce(
     (acc, c) => acc + (Array.isArray(c.pessoas) ? c.pessoas.length : 0),
@@ -138,8 +142,20 @@ export const SetorAccordion: React.FC<SetorAccordionProps> = ({
                   isSelected={selectedCultoId === culto.id}
                   onSelect={onSelectCulto}
                   onFocusOnMap={onFocusCulto}
+                  onEdit={onEditCulto}
                 />
               ))
+            )}
+
+            {/* Ação para Adicionar Culto Diretamente neste Setor */}
+            {onAddCultoInSetor && (
+              <button
+                type="button"
+                onClick={() => onAddCultoInSetor(setor.setor)}
+                className="mt-1 text-left text-[11px] text-accent hover:underline font-medium py-1 px-1 rounded hover:bg-chip/50 transition-colors"
+              >
+                + Adicionar culto no setor {setor.setor}
+              </button>
             )}
           </div>
         </div>

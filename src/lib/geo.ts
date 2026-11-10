@@ -269,3 +269,93 @@ export function spread(
     y: +(y + Math.sin(a) * r).toFixed(1),
   };
 }
+
+export interface LocateAddressResult {
+  pin: { x: number; y: number } | null;
+  setor: number | null;
+  bairro: string;
+  rua: string;
+  locHow: 'rua' | 'bairro' | 'manual' | '';
+}
+
+/**
+ * Localiza automaticamente coordenadas SVG a partir do bairro e/ou rua informados
+ */
+export function locateAddress(
+  rua: string,
+  bairroNome: string,
+  existingCultos: { x: number; y: number; id?: string }[] = [],
+  manualPin?: { x: number; y: number } | null,
+  excludeId?: string
+): LocateAddressResult {
+  if (manualPin) {
+    const b = bairroAt(manualPin.x, manualPin.y);
+    const nearest = nearestStreet(manualPin.x, manualPin.y);
+    return {
+      pin: manualPin,
+      setor: b.setor,
+      bairro: b.nome,
+      rua: rua || nearest,
+      locHow: 'manual',
+    };
+  }
+
+  const b = bairroByName[bairroNome] || null;
+  const ways = streetWays(rua);
+  let best: { x: number; y: number } | null = null;
+  let bd = Infinity;
+
+  if (ways.length) {
+    const ref = b ? { x: b.x, y: b.y } : null;
+    for (const w of ways) {
+      const p = w[2];
+      for (let i = 0; i < p.length; i += 2) {
+        const x = p[i] / 2;
+        const y = p[i + 1] / 2;
+        let d = ref ? Math.hypot(x - ref.x, y - ref.y) : 0;
+        if (b) {
+          const item = parsedBairros.find((pb) => pb.bairro.nome === b.nome);
+          if (item && !pointInPolygon(x, y, item.ring)) {
+            d += 400;
+          }
+        }
+        if (d < bd) {
+          bd = d;
+          best = { x, y };
+        }
+        if (!ref) break;
+      }
+      if (!ref) break;
+    }
+    if (best && b && bd > 520) best = null;
+  }
+
+  if (best) {
+    const pin = spread(+best.x.toFixed(1), +best.y.toFixed(1), existingCultos, excludeId);
+    const resolvedBairro = bairroAt(pin.x, pin.y);
+    return {
+      pin,
+      setor: resolvedBairro.setor,
+      bairro: b ? b.nome : resolvedBairro.nome,
+      rua,
+      locHow: 'rua',
+    };
+  } else if (b) {
+    const pin = spread(b.x, b.y, existingCultos, excludeId);
+    return {
+      pin,
+      setor: b.setor,
+      bairro: b.nome,
+      rua,
+      locHow: 'bairro',
+    };
+  }
+
+  return {
+    pin: null,
+    setor: null,
+    bairro: bairroNome,
+    rua,
+    locHow: '',
+  };
+}
