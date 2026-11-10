@@ -1,0 +1,19 @@
+services:
+  # ========================================================
+  # Frontend SPA: React 18 + Vite + Nginx Alpine
+  # ========================================================
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pao-da-vida-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-80}:80"
+    networks:
+      - pao-da-vida-network
+
+networks:
+  pao-da-vida-network:
+    name: pao-da-vida-network
+    external: true
