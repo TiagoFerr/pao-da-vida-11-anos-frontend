@@ -14,12 +14,15 @@ export default {
     },
     extend: {
       colors: {
-        // Marca Oficial Crescer & Edificar
+        // Marca Oficial Crescer & Edificar (Manual Atualizado)
         ce: {
+          porcelana: 'var(--ce-porcelana)',
           verde: 'var(--ce-verde)',
+          marfim: 'var(--ce-marfim)',
+          bege: 'var(--ce-bege)',
+          creme: 'var(--ce-bege)',
+          oliva: 'var(--ce-marfim)',
           dourado: 'var(--ce-dourado)',
-          creme: 'var(--ce-creme)',
-          oliva: 'var(--ce-oliva)',
           preto: 'var(--ce-preto)',
         },
         // Tokens de Interface Semânticos (Light & Dark)
@@ -35,6 +38,8 @@ export default {
         danger: 'var(--danger)',
       },
       fontFamily: {
+        identidade: ['"Squeeze"', '"Deco"', '"Bebas Neue"', 'Anton', 'sans-serif'],
+        combinacao: ['"Classic"', '"Editor"', '"Montserrat"', 'Inter', 'sans-serif'],
         title: ['"Bebas Neue"', 'Anton', 'sans-serif'],
         serif: ['Lora', 'Georgia', 'serif'],
         sans: ['Inter', 'Montserrat', 'system-ui', '-apple-system', 'sans-serif'],

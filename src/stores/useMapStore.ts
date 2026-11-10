@@ -25,6 +25,10 @@ interface MapState {
   // Actions
   selectSetor: (setor: number | null, containerAspect?: number) => void;
   selectCulto: (id: string | null) => void;
+  focusCulto: (
+    culto: { id: string; setor: number; x: number; y: number },
+    containerAspect?: number
+  ) => void;
   setVb: (vb: [number, number, number, number]) => void;
   resetView: (containerAspect?: number) => void;
   fitRegion: (containerAspect?: number) => void;
@@ -70,6 +74,20 @@ export const useMapStore = create<MapState>((set, get) => ({
   },
 
   selectCulto: (id) => set({ selectedCultoId: id }),
+
+  focusCulto: (culto, containerAspect = 1.33) => {
+    const bbox: [number, number, number, number] = [
+      culto.x - 60,
+      culto.y - 60,
+      120,
+      120,
+    ];
+    set({
+      selectedCultoId: culto.id,
+      selectedSetor: culto.setor,
+      vb: fitBox(bbox, 0.05, 140, containerAspect),
+    });
+  },
 
   setVb: (vb) => set({ vb }),
 
