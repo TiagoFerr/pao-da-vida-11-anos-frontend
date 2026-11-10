@@ -13,21 +13,9 @@ import {
   setorBy,
 } from '../../lib/geo';
 import { useMapStore } from '../../stores/useMapStore';
+import { CultoMarker } from '../../types/culto';
 
-export interface CultoMarker {
-  id: string;
-  setor: number;
-  x: number;
-  y: number;
-  rua?: string;
-  numero?: string;
-  bairro?: string;
-  lider?: string;
-  anfitriao?: string;
-  pessoas?: string[];
-  horario?: string;
-  obs?: string;
-}
+export type { CultoMarker };
 
 interface MapSVGProps {
   cultos?: CultoMarker[];

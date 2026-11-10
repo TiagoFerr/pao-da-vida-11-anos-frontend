@@ -22,21 +22,42 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-accent pb-4 mb-5">
       <div className="flex-1 min-w-[280px]">
+        {/* Prefixo Editorial do Manual Atualizado */}
+        <div className="flex items-center gap-2 text-[11px] font-semibold tracking-wider text-muted uppercase mb-1">
+          <span className="text-gold font-mono">//</span>
+          <span>120 Cultos nos Lares · 19 de Novembro de 2026</span>
+        </div>
+
         <div className="flex items-center justify-between gap-4">
-          <h1 className="font-serif font-semibold text-2xl sm:text-3xl text-accent tracking-tight leading-tight">
-            120 Cultos nos Lares
-          </h1>
+          <div className="flex items-baseline gap-2.5 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl text-accent tracking-tight leading-tight flex items-baseline gap-1.5 select-none">
+              <span className="font-sans font-normal tracking-wide">CRESCER</span>
+              <span className="text-gold font-serif italic font-normal">&amp;</span>
+              <span className="font-sans font-black italic tracking-tight">EDIFICAR</span>
+            </h1>
+            <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-ce-bege text-ce-verde border border-ce-marfim/30 hidden sm:inline-block">
+              11 Anos
+            </span>
+          </div>
+
           <div className="flex items-center gap-2 sm:hidden">
             <ThemeToggle />
           </div>
         </div>
-        <p className="text-sm text-muted mt-1 max-w-[62ch]">
-          Mapa dos setores de Mossoró para o aniversário de 11 anos da Igreja Pão da Vida. Cultos em 19 de novembro de 2026.
-        </p>
-        <div className="flex items-center gap-3 mt-1">
-          <p className="font-serif italic text-gold text-sm sm:text-base select-none">
-            Crescer &amp; Edificar, Efésios 4:16
-          </p>
+
+        {/* Linha de Apoio com Fios Horizontais e Efésios 4:16 */}
+        <div className="flex items-center gap-2.5 mt-1.5 flex-wrap">
+          <div className="flex items-center gap-1.5 text-xs">
+            <span className="h-[1px] w-4 bg-gold/70 inline-block" />
+            <span className="font-serif italic text-gold text-xs sm:text-sm select-none">
+              Efésios 4:16
+            </span>
+            <span className="h-[1px] w-4 bg-gold/70 inline-block" />
+          </div>
+          <span className="text-[10px] tracking-[0.2em] font-medium text-muted uppercase">
+            Igreja Pão da Vida · Mossoró - RN
+          </span>
+
           {/* Botões de Acesso de Liderança */}
           <div className="hidden sm:flex items-center gap-2 ml-auto">
             {isAuthenticated && user ? (

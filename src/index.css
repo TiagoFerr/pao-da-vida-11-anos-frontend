@@ -3,22 +3,27 @@
 @tailwind utilities;
 
 :root {
-  /* Marca Oficial — Crescer & Edificar */
-  --ce-verde: #1D4225;
-  --ce-dourado: #D2A34C;
-  --ce-creme: #F4EDE6;
-  --ce-oliva: #7E7F66;
-  --ce-preto: #080706;
+  /* Marca Oficial — Crescer & Edificar (Manual Atualizado) */
+  --ce-porcelana: #FEFEFE; /* ⚪ Base, respiro, pureza com autoridade */
+  --ce-verde: #1D4225;     /* 🟢 Verde Bandeira - Força, maturidade, assinatura premium (50%) */
+  --ce-marfim: #7E7F66;    /* 🫒 Marfim (oliva acinzentado) - Acolhimento, textura (5%) */
+  --ce-bege: #F4EDE6;      /* 🤍 Bege (creme) - Intimidade, voz com história (25%) */
+  --ce-dourado: #D2A34C;   /* 🟡 Dourado - Chama, intenção, CTA, versículo (15%) */
+  --ce-preto: #080706;     /* ⚫ Preto - Sabedoria, estabilidade, contraste (10%) */
+
+  /* Aliases para compatibilidade */
+  --ce-creme: var(--ce-bege);
+  --ce-oliva: var(--ce-marfim);
 
   /* UI Semântica — Tema Claro */
   --bg: #E9EDE6;
-  --panel: #FFFFFF;
+  --panel: #FEFEFE;
   --ink: #16231A;
   --muted: #5B6A5F;
   --line: #D3DBD0;
   --chip: #F1F4EF;
   --accent: #1D4225;
-  --on-accent: #FFFFFF;
+  --on-accent: #FEFEFE;
   --gold: #D2A34C;
   --danger: #A3322B;
   --shadow: 0 8px 28px rgba(29, 66, 37, 0.10);
