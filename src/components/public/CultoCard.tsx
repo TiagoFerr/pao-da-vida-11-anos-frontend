@@ -8,6 +8,7 @@ interface CultoCardProps {
   isSelected: boolean;
   onSelect: (culto: CultoMarker) => void;
   onFocusOnMap: (culto: CultoMarker) => void;
+  onEdit?: (culto: CultoMarker) => void;
 }
 
 /**
@@ -26,6 +27,7 @@ export const CultoCard: React.FC<CultoCardProps> = ({
   isSelected,
   onSelect,
   onFocusOnMap,
+  onEdit,
 }) => {
   const [lat, lng] = toLL(culto.x, culto.y);
   const setor = setorBy[culto.setor];
@@ -184,6 +186,22 @@ export const CultoCard: React.FC<CultoCardProps> = ({
         >
           Ponto GPS
         </a>
+
+        {onEdit && (
+          <>
+            <span className="text-muted text-[10px]">·</span>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onEdit(culto);
+              }}
+              className="text-[10px] text-accent hover:underline px-1 py-0.5 font-medium ml-auto"
+            >
+              Editar
+            </button>
+          </>
+        )}
       </div>
     </article>
   );

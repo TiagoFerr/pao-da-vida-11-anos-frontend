@@ -11,11 +11,15 @@ import { Button } from '../ui/Button';
 interface PublicSidebarProps {
   cultos: CultoMarker[];
   onStartPick?: () => void;
+  onOpenCreateCulto?: (opts?: { setor?: number; bairro?: string; rua?: string }) => void;
+  onEditCulto?: (culto: CultoMarker) => void;
 }
 
 export const PublicSidebar: React.FC<PublicSidebarProps> = ({
   cultos,
   onStartPick,
+  onOpenCreateCulto,
+  onEditCulto,
 }) => {
   const {
     selectedSetor,
@@ -197,15 +201,29 @@ export const PublicSidebar: React.FC<PublicSidebarProps> = ({
               CSV
             </Button>
 
-            {onStartPick && (
+            {onOpenCreateCulto && (
               <Button
                 type="button"
                 variant="primary"
                 size="sm"
-                onClick={onStartPick}
-                className="text-xs h-8 px-3"
+                onClick={() => onOpenCreateCulto()}
+                className="text-xs h-8 px-2.5 font-medium"
+                title="Cadastrar novo culto no lar"
               >
-                + Marcar
+                + Culto
+              </Button>
+            )}
+
+            {onStartPick && (
+              <Button
+                type="button"
+                variant="default"
+                size="sm"
+                onClick={onStartPick}
+                className="text-xs h-8 px-2.5 border-line hover:border-accent"
+                title="Marcar ponto diretamente no mapa"
+              >
+                Marcar
               </Button>
             )}
           </div>
@@ -311,6 +329,8 @@ export const PublicSidebar: React.FC<PublicSidebarProps> = ({
                 onToggle={() => toggleSetor(setor.setor)}
                 onSelectCulto={(c) => selectCulto(c.id)}
                 onFocusCulto={handleFocusCulto}
+                onEditCulto={onEditCulto}
+                onAddCultoInSetor={(sNum) => onOpenCreateCulto?.({ setor: sNum })}
               />
             );
           })
