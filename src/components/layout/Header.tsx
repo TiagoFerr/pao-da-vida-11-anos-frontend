@@ -14,6 +14,7 @@ export interface HeaderProps {
   onOpenCoordenador?: () => void;
   onOpenConvites?: () => void;
   onOpenLider?: () => void;
+  onOpenAnfitriao?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -26,6 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCoordenador,
   onOpenConvites,
   onOpenLider,
+  onOpenAnfitriao,
 }) => {
   const { user, isAuthenticated, logout } = useAuthStore();
 
@@ -70,6 +72,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Botões de Acesso de Liderança, Dashboard, Coordenador e Telão */}
           <div className="hidden sm:flex items-center gap-2 ml-auto">
+            {onOpenAnfitriao && (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={onOpenAnfitriao}
+                className="text-xs font-bold text-[#85611e] border-[#D2A34C]/40 bg-[#D2A34C]/10 hover:bg-[#D2A34C]/20"
+              >
+                Meu Lar
+              </Button>
+            )}
+
             {onOpenLider && (
               <Button
                 variant="default"
@@ -174,6 +187,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Botões para mobile */}
         <div className="sm:hidden flex items-center gap-1.5 flex-wrap justify-end">
+          {onOpenAnfitriao && (
+            <Button
+              variant="default"
+              size="sm"
+              onClick={onOpenAnfitriao}
+              className="text-[11px] py-1 px-2 font-bold text-[#85611e] bg-amber-50"
+            >
+              Meu Lar
+            </Button>
+          )}
           {onOpenLider && (
             <Button
               variant="default"
