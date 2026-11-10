@@ -139,6 +139,13 @@ export const LiderApp: React.FC<LiderAppProps> = ({ cultosFallback = [] }) => {
           {/* Atalhos Rápidos para Telão & Dashboard */}
           <div className="flex items-center gap-1.5">
             <Link
+              to={cultoAtivo ? `/anfitriao/${cultoAtivo.id}` : '/anfitriao'}
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-[#D2A34C] transition-colors"
+              title="Portal do Anfitrião / Meu Lar"
+            >
+              <Home className="w-4 h-4" />
+            </Link>
+            <Link
               to="/telao"
               target="_blank"
               className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-[#D2A34C] transition-colors"

@@ -22,6 +22,7 @@ import {
   LogOut,
   ShieldAlert,
   Smartphone,
+  Home,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -132,6 +133,16 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           >
             <PlusCircle className="w-4 h-4" />
             <span>Adicionar Culto</span>
+          </Button>
+
+          <Button
+            variant="default"
+            size="sm"
+            onClick={() => navigate('/anfitriao')}
+            className="flex items-center gap-1.5 border-[#D2A34C]/40 text-[#85611e] font-bold bg-[#D2A34C]/10"
+          >
+            <Home className="w-4 h-4 text-[#D2A34C]" />
+            <span>Meu Lar</span>
           </Button>
 
           <Button
