@@ -41,15 +41,22 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-baseline gap-2.5 flex-wrap">
-            <h1 className="text-2xl sm:text-3xl text-accent tracking-tight leading-tight flex items-baseline gap-1.5 select-none">
-              <span className="font-sans font-normal tracking-wide">CRESCER</span>
-              <span className="text-gold font-serif italic font-normal">&amp;</span>
-              <span className="font-sans font-black italic tracking-tight">EDIFICAR</span>
-            </h1>
-            <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-ce-bege text-ce-verde border border-ce-marfim/30 hidden sm:inline-block">
-              11 Anos
-            </span>
+          <div className="flex items-center gap-3 flex-wrap">
+            <img
+              src="/logo-principal-verde-dourado-transparente.png"
+              alt="Logo Pão da Vida 11 Anos"
+              className="h-10 sm:h-12 w-auto object-contain shrink-0 drop-shadow-xs"
+            />
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <h1 className="text-2xl sm:text-3xl text-accent tracking-tight leading-tight flex items-baseline gap-1.5 select-none">
+                <span className="font-sans font-normal tracking-wide">CRESCER</span>
+                <span className="text-gold font-serif italic font-normal">&amp;</span>
+                <span className="font-sans font-black italic tracking-tight">EDIFICAR</span>
+              </h1>
+              <span className="text-xs px-2 py-0.5 rounded-full font-semibold bg-ce-bege text-ce-verde border border-ce-marfim/30 hidden sm:inline-block">
+                11 Anos
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 sm:hidden">

@@ -94,23 +94,30 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     <div className="max-w-[1440px] mx-auto px-3 sm:px-6 py-5 min-h-screen space-y-6">
       {/* Header do Dashboard Pastoral */}
       <header className="bg-panel border border-line rounded-2xl p-4 sm:p-6 shadow-card flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] font-semibold text-dourado uppercase tracking-wider font-combinacao flex items-center gap-1.5">
-              <span className="text-dourado font-bold font-mono">//</span> PAINEL EXECUTIVO PASTORAL
-            </span>
-            <span className="bg-verde/15 text-verde text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border border-verde/30">
-              11 Anos
-            </span>
+        <div className="flex items-center gap-4">
+          <img
+            src="/logo-principal-verde-dourado-transparente.png"
+            alt="Pão da Vida 11 Anos"
+            className="h-12 sm:h-14 w-auto object-contain shrink-0"
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-semibold text-dourado uppercase tracking-wider font-combinacao flex items-center gap-1.5">
+                <span className="text-dourado font-bold font-mono">//</span> PAINEL EXECUTIVO PASTORAL
+              </span>
+              <span className="bg-verde/15 text-verde text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border border-verde/30">
+                11 Anos
+              </span>
+            </div>
+
+            <h1 className="text-xl sm:text-2xl font-bold font-identidade text-primary mt-1">
+              Gestão Estratégica dos 120 Cultos nos Lares
+            </h1>
+
+            <p className="text-xs text-body mt-0.5 font-serif italic text-body/80">
+              "De quem todo o corpo, bem ajustado e ligado pelo auxílio de todas as juntas..." — Efésios 4:16
+            </p>
           </div>
-
-          <h1 className="text-xl sm:text-2xl font-bold font-identidade text-primary mt-1">
-            Gestão Estratégica dos 120 Cultos nos Lares
-          </h1>
-
-          <p className="text-xs text-body mt-0.5 font-serif italic text-body/80">
-            "De quem todo o corpo, bem ajustado e ligado pelo auxílio de todas as juntas..." — Efésios 4:16
-          </p>
         </div>
 
         {/* Barra de Ações Rápidas Executivas */}

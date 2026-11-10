@@ -95,6 +95,12 @@ export const AnfitriaoPortalPage: React.FC<AnfitriaoPortalPageProps> = ({
               <ArrowLeft className="w-5 h-5" />
             </Link>
 
+            <img
+              src="/logo-principal-transparente.png"
+              alt="Logo Pão da Vida"
+              className="h-8 sm:h-9 w-auto object-contain"
+            />
+
             <div>
               <span className="text-[10px] font-black uppercase tracking-widest text-[#D2A34C] block leading-none">
                 Portal do Anfitrião

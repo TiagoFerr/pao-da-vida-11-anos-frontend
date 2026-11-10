@@ -172,9 +172,11 @@ export const TelaoPage: React.FC<TelaoPageProps> = ({ cultosFallback }) => {
       <header className="relative z-10 px-6 sm:px-10 py-5 flex items-center justify-between border-b border-white/10 backdrop-blur-xs">
         {/* Identidade Editorial */}
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1D4225] to-[#080706] border border-[#D2A34C]/60 flex items-center justify-center shadow-lg">
-            <span className="text-xl font-black font-identidade text-[#D2A34C]">11</span>
-          </div>
+          <img
+            src="/logo-principal-transparente.png"
+            alt="Pão da Vida 11 Anos"
+            className="h-14 sm:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(210,163,76,0.25)]"
+          />
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs tracking-[0.25em] font-semibold text-[#D2A34C] font-mono">
