@@ -11,6 +11,7 @@ import { TelaoPage } from '@/pages/TelaoPage';
 import { CoordenadorPanel } from '@/pages/CoordenadorPanel';
 import { ConvitesPage } from '@/pages/ConvitesPage';
 import { ActivateInvitePage } from '@/pages/ActivateInvitePage';
+import { LiderApp } from '@/pages/LiderApp';
 
 // Amostra inicial de cultos nos lares para validação interativa e fallback de segurança
 const INITIAL_CULTOS: CultoMarker[] = [
@@ -193,6 +194,10 @@ export function App() {
 
         {/* Rota 6: Ativação Pública de Convite Recebido no WhatsApp */}
         <Route path="/convite/:token" element={<ActivateInvitePage />} />
+
+        {/* Rota 7 & 8: App do Líder de Culto & Upload de Fotos no MinIO S3 */}
+        <Route path="/lider" element={<LiderApp cultosFallback={cultos} />} />
+        <Route path="/lider/:cultoId" element={<LiderApp cultosFallback={cultos} />} />
 
         {/* Fallback de rotas desconhecidas */}
         <Route path="*" element={<Navigate to="/" replace />} />

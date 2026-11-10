@@ -5,6 +5,7 @@ import {
   FiltrarDecisoesParams,
   AtualizarDiscipuladoDto,
   DecisaoItem,
+  TipoDecisao,
 } from '../../types/decisao';
 
 // Amostra de decisões espirituais para fallback offline e demonstração executiva
@@ -115,6 +116,77 @@ export const SAMPLE_DECISOES: DecisaoItem[] = [
     createdAt: '2026-11-19T20:55:00.000Z',
   },
 ];
+
+export interface CriarDecisaoDto {
+  nomeDecidido: string;
+  telefone?: string;
+  tipoDecisao: TipoDecisao;
+  presencaId?: string;
+  pedidoOracaoDetalhe?: string;
+}
+
+export function useDecisoesCulto(cultoId?: string | null) {
+  return useQuery<DecisaoItem[]>({
+    queryKey: ['decisoes', 'culto', cultoId],
+    queryFn: async () => {
+      if (!cultoId) return [];
+      try {
+        const res = await api.get<DecisaoItem[]>(`/cultos/${cultoId}/decisoes`);
+        return res.data;
+      } catch {
+        return SAMPLE_DECISOES.filter((d) => d.cultoId === cultoId);
+      }
+    },
+    enabled: !!cultoId,
+    staleTime: 1000 * 15,
+  });
+}
+
+export function useRegistrarDecisao(cultoId: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (dto: CriarDecisaoDto) => {
+      try {
+        const res = await api.post<DecisaoItem>(`/cultos/${cultoId}/decisoes`, dto);
+        return res.data;
+      } catch {
+        // Fallback local
+        const novaDecisao: DecisaoItem = {
+          id: `decisao-local-${Date.now()}`,
+          cultoId,
+          culto: {
+            id: cultoId,
+            numeroSequencial: 1,
+            setorNumero: 1,
+            setorNome: 'Setor',
+            bairro: 'Bairro',
+            liderNome: 'Líder',
+            anfitriaoNome: 'Anfitrião',
+          },
+          presencaId: dto.presencaId || null,
+          nomeDecidido: dto.nomeDecidido,
+          telefone: dto.telefone || null,
+          tipoDecisao: dto.tipoDecisao,
+          pedidoOracaoDetalhe: dto.pedidoOracaoDetalhe || null,
+          statusDiscipulado: 'PENDENTE',
+          registradoPorNome: 'Líder do Lar',
+          createdAt: new Date().toISOString(),
+        };
+        SAMPLE_DECISOES.unshift(novaDecisao);
+        return novaDecisao;
+      }
+    },
+    onSuccess: (novaDecisao) => {
+      queryClient.setQueryData<DecisaoItem[]>(['decisoes', 'culto', cultoId], (antigo) => {
+        if (!antigo) return [novaDecisao];
+        return [novaDecisao, ...antigo];
+      });
+      queryClient.invalidateQueries({ queryKey: ['decisoes', 'relatorio'] });
+      queryClient.invalidateQueries({ queryKey: ['metricas'] });
+    },
+  });
+}
 
 export function useRelatorioDecisoes(params?: FiltrarDecisoesParams) {
   return useQuery<RelatorioDecisoesConsolidado>({

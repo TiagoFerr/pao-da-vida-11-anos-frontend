@@ -34,3 +34,25 @@ export interface FiltrarFotosTelaoParams {
   page?: number;
   limit?: number;
 }
+
+export interface SolicitarPresignedUrlDto {
+  nomeOriginal: string;
+  mimeType: string;
+  tamanhoBytes?: number;
+}
+
+export interface PresignedUploadResponseDto {
+  uploadUrl: string;
+  s3Key: string;
+  urlPublica: string;
+  expiraEmSegundos: number;
+}
+
+export interface ConfirmarFotoDto {
+  s3Key: string;
+  urlPublica: string;
+  nomeOriginal: string;
+  mimeType: string;
+  tamanhoBytes: number;
+  legenda?: string;
+}

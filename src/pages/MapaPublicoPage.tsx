@@ -83,6 +83,7 @@ export const MapaPublicoPage: React.FC<MapaPublicoPageProps> = ({
         onOpenTelao={() => navigate('/telao')}
         onOpenCoordenador={() => navigate('/coordenador')}
         onOpenConvites={() => navigate('/convites')}
+        onOpenLider={() => navigate('/lider')}
       />
 
       <main className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_390px] gap-5 items-start mt-4">
